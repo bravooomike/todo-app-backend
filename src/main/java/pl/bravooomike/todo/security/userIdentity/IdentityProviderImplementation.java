@@ -11,9 +11,11 @@ import java.util.List;
 public class IdentityProviderImplementation {
 
     public UserIdentity get() {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUser principal = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserIdentity userIdentity = new UserIdentity();
-        userIdentity.setUsername(principal.getUsername());
+        userIdentity.setId(principal.getId());
+        userIdentity.setFirstName(principal.getUsername());
+        userIdentity.setLastName(principal.getUsername());
         userIdentity.setUserRole(principal.getAuthorities().toString());
 
 //        List<String> userRoleList = new ArrayList<>();

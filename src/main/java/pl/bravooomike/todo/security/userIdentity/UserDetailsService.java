@@ -12,15 +12,21 @@ import java.util.Collections;
 @Service
 public class UserDetailsService {
 
-    private UserRepository userRepository;
+    private UserIdentityRepository userIdentityRepository;
 
     @Autowired
-    public UserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsService(UserIdentityRepository userIdentityRepository) {
+        this.userIdentityRepository = userIdentityRepository;
     }
 
-    User loadByName(String name) {
-        UserEntity userEntity = this.userRepository.findByName(name);
-        return new User(userEntity.getFirstName(), userEntity.getPassword(), Collections.singleton(new SimpleGrantedAuthority(userEntity.getUserRole())));
+    User loadByEmail(String email) {
+        UserIdentityEntity userEntity = this.userIdentityRepository.findByEmail(email);
+
+//        if (userEntity.getUserRole() == UserIdentityRole.USER) {
+//            return null;
+//        }
+
+        return new CustomUser(userEntity.getFirstName(), userEntity.getPassword(),
+                Collections.singleton(new SimpleGrantedAuthority(userEntity.getUserRole().toString())), userEntity.getId());
     }
 }

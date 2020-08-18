@@ -1,17 +1,15 @@
-package pl.bravooomike.todo.user;
+package pl.bravooomike.todo.security.userIdentity;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.bravooomike.todo.task.TaskEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
 @Getter
 @Setter
-public class UserEntity {
+public class UserIdentityEntity {
 
     @Id
     @SequenceGenerator(
@@ -36,13 +34,12 @@ public class UserEntity {
     @Column(name ="password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name ="role")
-    private String userRole;
+    private UserIdentityRole userRole;
 
     @Column(name ="active")
     private Boolean active;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private List<TaskEntity> tasks;
+
 }

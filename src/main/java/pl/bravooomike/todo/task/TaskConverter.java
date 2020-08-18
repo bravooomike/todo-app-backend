@@ -10,6 +10,7 @@ public class TaskConverter {
 
     public TaskDto toDto(TaskEntity taskEntity) {
         TaskDto taskDto = new TaskDto();
+        taskDto.setId(taskEntity.getId());
         taskDto.setSummary(taskEntity.getSummary());
         taskDto.setContent(taskEntity.getContent());
         taskDto.setTaskTypeCode(taskEntity.getTaskTypeCode());

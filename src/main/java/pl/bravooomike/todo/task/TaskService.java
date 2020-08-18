@@ -2,6 +2,7 @@ package pl.bravooomike.todo.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.bravooomike.todo.security.userIdentity.IdentityProviderImplementation;
 
 import java.util.List;
 
@@ -10,23 +11,29 @@ public class TaskService {
 
     private TaskRepository taskRepository;
     private TaskConverter taskConverter;
+    private IdentityProviderImplementation identityProviderImplementation;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository, TaskConverter taskConverter) {
+    public TaskService(TaskRepository taskRepository, TaskConverter taskConverter, IdentityProviderImplementation identityProviderImplementation) {
         this.taskRepository = taskRepository;
         this.taskConverter = taskConverter;
+        this.identityProviderImplementation = identityProviderImplementation;
     }
 
     public List<TaskDto> getAll() {
-        return taskConverter.toDtos(taskRepository.findAll());
+        Integer userId = identityProviderImplementation.get().getId();
+        return taskConverter.toDtos(taskRepository.findByUserId(userId));
     }
 
     public TaskDto getOne(Integer id) {
-        return taskConverter.getOne(taskRepository.findById(id).orElse(null));
+        Integer userId = identityProviderImplementation.get().getId();
+        return taskConverter.getOne(taskRepository.findByIdAndUserId(id, userId).orElse(null));
     }
 
     public TaskDto save(TaskDto taskDto, Integer id) {
         TaskEntity savedTaskEntity;
+        Integer userId = identityProviderImplementation.get().getId();
+        taskDto.setUserId(userId);
         if(id == null) {
             savedTaskEntity = taskRepository.save(taskConverter.toEntity(taskDto, null));
         } else {
