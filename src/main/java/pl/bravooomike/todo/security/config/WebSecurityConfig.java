@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/rest/todo/auth/").permitAll()
+                // .antMatchers(HttpMethod.GET, "/rest/todo/auth/").permitAll()
                 .antMatchers(HttpMethod.POST, "/rest/todo/auth/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 
+    //
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(new UserAuthentificationProvider(userDetailsService));

@@ -27,6 +27,7 @@ public class UserDetailsService {
 //        }
 
         return new CustomUser(userEntity.getFirstName(), userEntity.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority(userEntity.getUserRole().toString())), userEntity.getId());
+                Collections.singleton(new SimpleGrantedAuthority(userEntity.getUserRole().toString())),
+                userEntity.getId(), userEntity.getLastName());
     }
 }

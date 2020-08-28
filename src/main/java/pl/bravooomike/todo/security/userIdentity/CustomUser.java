@@ -10,9 +10,12 @@ import java.util.Collection;
 public class CustomUser extends User {
 
     private Integer id;
+    private String lastname;
 
-    public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities, Integer id) {
+    public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities,
+                      Integer id, String lastname) {
         super(username, password, authorities);
         this.id = id;
+        this.lastname = lastname;
     }
 }

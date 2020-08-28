@@ -10,18 +10,18 @@ import pl.bravooomike.todo.user.UserRepository;
 @RequestMapping(path = "/rest/todo/auth")
 public class IdentityController {
 
-    private IdentityProviderImplementation identityProvider;
+    private IdentityProviderImplementation identityProviderImplementation;
     private UserRepository userRepository;
 
     @Autowired
     public IdentityController(IdentityProviderImplementation identityProvider, UserRepository userRepository) {
-        this.identityProvider = identityProvider;
+        this.identityProviderImplementation = identityProvider;
         this.userRepository = userRepository;
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public UserIdentity getIdentity() {
-        return this.identityProvider.get();
+        return this.identityProviderImplementation.get();
     }
 
 }
