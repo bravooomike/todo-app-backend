@@ -2,7 +2,9 @@ package pl.bravooomike.todo.task;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.bravooomike.todo.taskType.TaskTypeDto;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -12,7 +14,7 @@ public class TaskDto {
     private Integer id;
     private String summary;
     private String content;
-    private String taskTypeCode;
+    private TaskTypeDto taskType;
     private String taskStatusCode;
     private OffsetDateTime createdDate;
     private OffsetDateTime expiredDate;

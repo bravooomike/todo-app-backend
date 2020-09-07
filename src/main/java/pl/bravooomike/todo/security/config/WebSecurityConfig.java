@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // .antMatchers(HttpMethod.GET, "/rest/todo/auth/").permitAll()
                 .antMatchers(HttpMethod.POST, "/rest/todo/auth/logout").permitAll()
+//                .antMatchers(HttpMethod.PUT, "/rest/todo/:id").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

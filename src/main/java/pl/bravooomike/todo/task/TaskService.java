@@ -41,4 +41,8 @@ public class TaskService {
         }
         return taskConverter.toDto(savedTaskEntity);
     }
+
+    public void deleteOne(Integer id) {
+        taskRepository.deleteById(id);
+    }
 }

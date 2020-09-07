@@ -10,4 +10,5 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Integer> {
     List<TaskEntity> findByUserId(Integer id);
     Optional<TaskEntity> findByIdAndUserId(Integer taskId, Integer userId);
 
+
 }

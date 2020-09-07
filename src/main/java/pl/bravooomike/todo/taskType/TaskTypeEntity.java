@@ -5,12 +5,13 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "task_type")
 @Getter
 @Setter
-public class TaskTypeEntity {
+public class TaskTypeEntity implements Serializable {
 
     @Id
     @SequenceGenerator(

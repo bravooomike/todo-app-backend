@@ -2,8 +2,10 @@ package pl.bravooomike.todo.task;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.bravooomike.todo.taskType.TaskTypeEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -29,8 +31,11 @@ public class TaskEntity {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "task_type_code")
-    private String taskTypeCode;
+    @ManyToOne
+    @JoinColumn(name = "task_type_code", referencedColumnName = "code")
+//    @Column(name = "task_type_code")
+//    private String taskTypeCode;
+    private TaskTypeEntity taskType;
 
     @Column(name = "task_status_code")
     private String taskStatusCode;

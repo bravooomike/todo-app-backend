@@ -1,6 +1,8 @@
 package pl.bravooomike.todo.task;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.bravooomike.todo.taskType.TaskTypeConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +10,19 @@ import java.util.List;
 @Component
 public class TaskConverter {
 
+    private TaskTypeConverter taskTypeConverter;
+
+    @Autowired
+    public TaskConverter(TaskTypeConverter taskTypeConverter) {
+        this.taskTypeConverter = taskTypeConverter;
+    }
+
     public TaskDto toDto(TaskEntity taskEntity) {
         TaskDto taskDto = new TaskDto();
         taskDto.setId(taskEntity.getId());
         taskDto.setSummary(taskEntity.getSummary());
         taskDto.setContent(taskEntity.getContent());
-        taskDto.setTaskTypeCode(taskEntity.getTaskTypeCode());
+        taskDto.setTaskType(taskTypeConverter.toDto(taskEntity.getTaskType()));
         taskDto.setTaskStatusCode(taskEntity.getTaskStatusCode());
         taskDto.setCreatedDate(taskEntity.getCreatedDate());
         taskDto.setExpiredDate(taskEntity.getExpiredDate());
@@ -43,7 +52,7 @@ public class TaskConverter {
         }
         taskEntity.setSummary(taskDto.getSummary());
         taskEntity.setContent(taskDto.getContent());
-        taskEntity.setTaskTypeCode(taskDto.getTaskTypeCode());
+//        taskEntity.setTaskType(taskDto.getTaskTypeCode);
         taskEntity.setTaskStatusCode(taskDto.getTaskStatusCode());
         taskEntity.setCreatedDate(taskDto.getCreatedDate());
         taskEntity.setExpiredDate(taskDto.getExpiredDate());
