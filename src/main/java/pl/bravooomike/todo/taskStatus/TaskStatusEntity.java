@@ -2,14 +2,18 @@ package pl.bravooomike.todo.taskStatus;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.bravooomike.todo.task.TaskEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "task_status")
 @Getter
 @Setter
-public class TaskStatusEntity {
+public class TaskStatusEntity implements Serializable {
 
     @Id
     @SequenceGenerator(
@@ -30,4 +34,16 @@ public class TaskStatusEntity {
 
     @Column(name = "active")
     private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskStatus")
+    private Set<TaskEntity> tasks;
+
+    public void addTask(TaskEntity taskEntity) {
+        if (tasks == null) {
+            tasks = new HashSet<>();
+        }
+        if (!tasks.contains(taskEntity)) {
+            tasks.add(taskEntity);
+        }
+    }
 }

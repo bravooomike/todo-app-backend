@@ -10,6 +10,7 @@ public class TaskTypeConverter {
 
     public TaskTypeDto toDto(TaskTypeEntity taskTypeEntity) {
         TaskTypeDto taskTypeDto = new TaskTypeDto();
+        taskTypeDto.setId(taskTypeEntity.getId());
         taskTypeDto.setCode(taskTypeEntity.getCode());
         taskTypeDto.setName(taskTypeEntity.getName());
         taskTypeDto.setActive(taskTypeEntity.getActive());
@@ -35,6 +36,7 @@ public class TaskTypeConverter {
         } else {
             taskTypeEntity = previousTaskTypeEntity;
         }
+        taskTypeEntity.setId(taskTypeDto.getId());
         taskTypeEntity.setCode(taskTypeDto.getCode());
         taskTypeEntity.setName(taskTypeDto.getName());
         taskTypeEntity.setActive(taskTypeDto.getActive());

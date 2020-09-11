@@ -2,6 +2,7 @@ package pl.bravooomike.todo.task;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.bravooomike.todo.taskStatus.TaskStatusEntity;
 import pl.bravooomike.todo.taskType.TaskTypeEntity;
 
 import javax.persistence.*;
@@ -33,12 +34,15 @@ public class TaskEntity {
 
     @ManyToOne
     @JoinColumn(name = "task_type_code", referencedColumnName = "code")
-//    @Column(name = "task_type_code")
-//    private String taskTypeCode;
+    // @Column(name = "task_type_code")
+    // private String taskTypeCode;
     private TaskTypeEntity taskType;
 
-    @Column(name = "task_status_code")
-    private String taskStatusCode;
+    @ManyToOne
+    @JoinColumn(name = "task_status_code", referencedColumnName = "code")
+    // @Column(name = "task_status_code")
+    // private String taskStatusCode;
+    private TaskStatusEntity taskStatus;
 
     @Column(name = "created_date")
     private OffsetDateTime createdDate;
@@ -51,4 +55,14 @@ public class TaskEntity {
 
     @Column(name = "user_id")
     private Integer userId;
+
+    public void setTaskType(TaskTypeEntity taskType) {
+        this.taskType = taskType;
+        taskType.addTask(this);
+    }
+
+    public void setTaskStatus(TaskStatusEntity taskStatus) {
+        this.taskStatus = taskStatus;
+        taskStatus.addTask(this);
+    }
 }

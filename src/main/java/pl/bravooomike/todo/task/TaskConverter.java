@@ -2,6 +2,7 @@ package pl.bravooomike.todo.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.bravooomike.todo.taskStatus.TaskStatusConverter;
 import pl.bravooomike.todo.taskType.TaskTypeConverter;
 
 import java.util.ArrayList;
@@ -11,10 +12,12 @@ import java.util.List;
 public class TaskConverter {
 
     private TaskTypeConverter taskTypeConverter;
+    private TaskStatusConverter taskStatusConverter;
 
     @Autowired
-    public TaskConverter(TaskTypeConverter taskTypeConverter) {
+    public TaskConverter(TaskTypeConverter taskTypeConverter, TaskStatusConverter taskStatusConverter) {
         this.taskTypeConverter = taskTypeConverter;
+        this.taskStatusConverter = taskStatusConverter;
     }
 
     public TaskDto toDto(TaskEntity taskEntity) {
@@ -23,7 +26,7 @@ public class TaskConverter {
         taskDto.setSummary(taskEntity.getSummary());
         taskDto.setContent(taskEntity.getContent());
         taskDto.setTaskType(taskTypeConverter.toDto(taskEntity.getTaskType()));
-        taskDto.setTaskStatusCode(taskEntity.getTaskStatusCode());
+        taskDto.setTaskStatus(taskStatusConverter.toDto(taskEntity.getTaskStatus()));
         taskDto.setCreatedDate(taskEntity.getCreatedDate());
         taskDto.setExpiredDate(taskEntity.getExpiredDate());
         taskDto.setEndedDate(taskEntity.getEndedDate());
@@ -52,8 +55,8 @@ public class TaskConverter {
         }
         taskEntity.setSummary(taskDto.getSummary());
         taskEntity.setContent(taskDto.getContent());
-//        taskEntity.setTaskType(taskDto.getTaskTypeCode);
-        taskEntity.setTaskStatusCode(taskDto.getTaskStatusCode());
+        taskEntity.setTaskType(taskTypeConverter.toEntity(taskDto.getTaskType()));
+        taskEntity.setTaskStatus(taskStatusConverter.toEntity(taskDto.getTaskStatus()));
         taskEntity.setCreatedDate(taskDto.getCreatedDate());
         taskEntity.setExpiredDate(taskDto.getExpiredDate());
         taskEntity.setEndedDate(taskDto.getEndedDate());

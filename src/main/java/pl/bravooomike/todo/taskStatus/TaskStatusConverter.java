@@ -12,6 +12,7 @@ public class TaskStatusConverter {
 
     public TaskStatusDto toDto(TaskStatusEntity taskStatusEntity) {
         TaskStatusDto taskStatusDto = new TaskStatusDto();
+        taskStatusDto.setId(taskStatusEntity.getId());
         taskStatusDto.setCode(taskStatusEntity.getCode());
         taskStatusDto.setName(taskStatusEntity.getName());
         taskStatusDto.setActive(taskStatusEntity.getActive());
@@ -37,6 +38,7 @@ public class TaskStatusConverter {
         } else {
             taskStatusEntity = previousTaskStatusEntity;
         }
+        taskStatusEntity.setId(taskStatusDto.getId());
         taskStatusEntity.setCode(taskStatusDto.getCode());
         taskStatusEntity.setName(taskStatusDto.getName());
         taskStatusEntity.setActive(taskStatusDto.getActive());
