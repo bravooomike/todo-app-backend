@@ -10,6 +10,7 @@ public class UserConverter {
 
     public UserDto toDto(UserEntity userEntity) {
         UserDto userDto = new UserDto();
+        userDto.setId(userEntity.getId());
         userDto.setFirstName(userEntity.getFirstName());
         userDto.setLastName(userEntity.getLastName());
         userDto.setEmail(userEntity.getEmail());

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.bravooomike.todo.taskStatus.TaskStatusConverter;
 import pl.bravooomike.todo.taskType.TaskTypeConverter;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +57,15 @@ public class TaskConverter {
         taskEntity.setSummary(taskDto.getSummary());
         taskEntity.setContent(taskDto.getContent());
         taskEntity.setTaskType(taskTypeConverter.toEntity(taskDto.getTaskType()));
+        taskEntity.setEndedDate(TaskDateMethod.calculateEndDate(taskDto, taskEntity));
         taskEntity.setTaskStatus(taskStatusConverter.toEntity(taskDto.getTaskStatus()));
         taskEntity.setCreatedDate(taskDto.getCreatedDate());
         taskEntity.setExpiredDate(taskDto.getExpiredDate());
-        taskEntity.setEndedDate(taskDto.getEndedDate());
+//        taskEntity.setEndedDate(taskDto.getEndedDate());
+
         taskEntity.setUserId(taskDto.getUserId());
         return taskEntity;
     }
+
+
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/rest/todoapp/user")
+@RequestMapping(path = "/rest/todo/user")
 public class UserController {
 
     UserService userService;
@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<UserDto> getall() {
+    public List<UserDto> getAll() {
         return userService.getAll();
     }
 
