@@ -1,10 +1,10 @@
 package pl.bravooomike.todo.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.bravooomike.todo.security.userIdentity.IdentityProviderImplementation;
-
-import java.util.List;
 
 @Service
 public class TaskService {
@@ -20,9 +20,10 @@ public class TaskService {
         this.identityProviderImplementation = identityProviderImplementation;
     }
 
-    public List<TaskDto> getAll() {
+    public Page<TaskDto> getAll(Pageable pageable) {
         Integer userId = identityProviderImplementation.get().getId();
-        return taskConverter.toDtos(taskRepository.findByUserId(userId));
+        Page<TaskEntity> result = taskRepository.findByUserId(userId, pageable);
+        return result.map(el -> taskConverter.toDto(el));
     }
 
     public TaskDto getOne(Integer id) {
