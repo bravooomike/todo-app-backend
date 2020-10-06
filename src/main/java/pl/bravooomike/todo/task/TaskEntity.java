@@ -6,7 +6,6 @@ import pl.bravooomike.todo.taskStatus.TaskStatusEntity;
 import pl.bravooomike.todo.taskType.TaskTypeEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity

@@ -20,8 +20,10 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public Page<TaskDto> getAll(Pageable pageable) {
-        return taskService.getAll(pageable);
+    public Page<TaskDto> getAll(String filter, Boolean allTasks, Pageable pageable) {
+//        System.out.println(filter);
+//        System.out.println(allTasks);
+        return taskService.getAll(filter, allTasks, pageable);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)

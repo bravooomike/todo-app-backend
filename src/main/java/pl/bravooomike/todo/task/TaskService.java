@@ -6,6 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.bravooomike.todo.security.userIdentity.IdentityProviderImplementation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class TaskService {
 
@@ -20,9 +24,27 @@ public class TaskService {
         this.identityProviderImplementation = identityProviderImplementation;
     }
 
-    public Page<TaskDto> getAll(Pageable pageable) {
+    public Page<TaskDto> getAll(String filter, Boolean allTasks, Pageable pageable) {
         Integer userId = identityProviderImplementation.get().getId();
-        Page<TaskEntity> result = taskRepository.findByUserId(userId, pageable);
+
+        System.out.println(filter);
+        System.out.println(allTasks);
+
+        List<String> taskStatusCodes = new ArrayList<>();
+        taskStatusCodes.add("zap");
+        taskStatusCodes.add("wtr");
+        if (allTasks == true) {
+            taskStatusCodes.add("zak");
+        }
+
+        Page<TaskEntity> result = null;
+        if (filter == null || "".equals(filter)) {
+           result = taskRepository.findByUserIdAndTaskStatus_CodeIn(userId, taskStatusCodes, pageable);
+        } else {
+            result = this.taskRepository.findBySummaryContainingIgnoreCaseAndUserIdAndTaskStatus_CodeIn(filter,
+                    userId, taskStatusCodes, pageable);
+        }
+
         return result.map(el -> taskConverter.toDto(el));
     }
 
